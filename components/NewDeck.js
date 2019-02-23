@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
 import { addDeck, fetchDecks } from '../utils/api'
+import { handleAddDeck } from '../actions/decks'
+import { connect } from 'react-redux'
 
 function SubmitBtn ({ onPress }) {
   return (
@@ -24,12 +26,12 @@ class NewDeck extends Component {
 
   submit = () => {
     const { name } = this.state
+    const { dispatch } = this.props
     addDeck(name)
-    this.setState({
-      name: ''
-    })
+    dispatch(handleAddDeck(name))
     fetchDecks()
-      .then((entries)=>console.log(entries))
+    //  .then((entries)=>console.log(entries))
+    this.setState({name:''})
     //return to deck list screen
   }
 
@@ -91,4 +93,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+function mapStateToProps (decks) {
+  return{
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(NewDeck)
