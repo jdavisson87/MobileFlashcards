@@ -40,9 +40,9 @@ class NewDeck extends Component {
     return(
       <View style={styles.container}>
         <View style={styles.center}>
-          <Text style={{fontSize:30, color:'blue', textAlign:'center'}}>What is the name of your New Deck</Text>
+          <Text style={{fontSize:30, color:'black', textAlign:'center'}}>What is the name of your New Deck</Text>
           <TextInput
-            style={{height: 40, width: 350, borderColor:'gray', borderWidth:1, margin: 15, textAlign:'center'}}
+            style={{height: 40, width: 320, borderColor:'gray', borderWidth:1, margin: 15, textAlign:'center'}}
             placeholder='Name of New Deck'
             onChangeText={this.handleTitleChange}
             value={name}
@@ -57,11 +57,11 @@ class NewDeck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
+    backgroundColor: 'white',
     padding: 15
   },
     iosSubmitBtn: {
-    backgroundColor: 'purple',
+    backgroundColor: 'black',
     padding: 10,
     borderRadius: 7,
     height: 45,
@@ -69,20 +69,20 @@ const styles = StyleSheet.create({
     marginRight: 40,
   },
   androidSubmitBtn: {
-    backgroundColor: 'purple',
+    backgroundColor: 'black',
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
     height: 45,
     borderRadius: 2,
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
   },
-    submitBtnText: {
+  submitBtnText: {
     color: 'white',
     fontSize: 22,
-    textAlign: 'center',
+
   },
   center: {
     flex: 1,
