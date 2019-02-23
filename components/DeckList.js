@@ -18,18 +18,19 @@ class DeckList extends Component {
 
     return(
       <View style={styles.container}>
-        <View style={styles.center}>
-          <Text style={{fontSize:34}}>DeckList</Text>
+        <Text style={styles.header}>DeckList</Text>
+        <Text style={{fontSize:24, textAlign:'center'}}>Choose which deck you would like to view</Text>
+        <View style={styles.list}>
           {Object.keys(decks).map(deck=>{
             //console.log('here', deck[deck].title)
             return(
-              <View key={decks[deck].title}>
+              <View style={styles.list} key={decks[deck].title}>
                 <DeckSelect deck={decks[deck]}/>
               </View>
             )
           })}
-        </View>
       </View>
+    </View>
     )
   }
 }
@@ -38,14 +39,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'green',
-    padding: 15
+    padding: 15,
+    alignItems: 'stretch',
+
   },
-  center: {
-    flex: 1,
-    //justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 30,
-    marginRight: 30,
+  header: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  list: {
+    backgroundColor: 'red',
   }
 })
 
