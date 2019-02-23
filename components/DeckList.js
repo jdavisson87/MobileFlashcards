@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform, ScrollView } from 'react-native'
 import { fetchDecks } from '../utils/api'
 import { receiveDecks } from '../actions/decks'
 import { connect } from 'react-redux'
@@ -20,7 +20,7 @@ class DeckList extends Component {
       <View style={styles.container}>
         <Text style={styles.header}>DeckList</Text>
         <Text style={{fontSize:24, textAlign:'center'}}>Choose which deck you would like to view</Text>
-        <View style={styles.list}>
+        <ScrollView style={styles.list}>
           {Object.keys(decks).map(deck=>{
             //console.log('here', deck[deck].title)
             return(
@@ -29,8 +29,8 @@ class DeckList extends Component {
               </View>
             )
           })}
+        </ScrollView>
       </View>
-    </View>
     )
   }
 }
@@ -38,7 +38,7 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
+    backgroundColor: 'white',
     padding: 15,
     alignItems: 'stretch',
 
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   list: {
-    backgroundColor: 'red',
+    backgroundColor: 'white',
   }
 })
 

@@ -18,9 +18,16 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8,
     borderRadius: 3,
-    borderWidth: 0.5,
-    borderColor: 'black',
-    backgroundColor:'white',
+    borderWidth: 1,
+    borderColor: 'gray',
+    backgroundColor:'lightgray',
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: 'rgba(0,0,0,0.24)',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    }
   },
   title: {
     fontSize: 24,
