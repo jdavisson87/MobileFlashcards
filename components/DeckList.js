@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform } from 'r
 import { fetchDecks } from '../utils/api'
 import { receiveDecks } from '../actions/decks'
 import { connect } from 'react-redux'
+import DeckSelect from './DeckSelect'
 
 class DeckList extends Component {
 
@@ -10,7 +11,6 @@ class DeckList extends Component {
     const { dispatch } = this.props
     fetchDecks()
       .then((decks)=>dispatch(receiveDecks(JSON.parse(decks))))
-      .then(()=>console.log('props', this.props))
   }
 
   render() {
@@ -21,8 +21,11 @@ class DeckList extends Component {
         <View style={styles.center}>
           <Text style={{fontSize:34}}>DeckList</Text>
           {Object.keys(decks).map(deck=>{
+            //console.log('here', deck[deck].title)
             return(
-              <Text key={deck}>{decks[deck].title}</Text>
+              <View key={decks[deck].title}>
+                <DeckSelect deck={decks[deck]}/>
+              </View>
             )
           })}
         </View>
