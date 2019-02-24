@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 
 export default function DeckSelect ({ deck }) {
+
   return (
       <TouchableOpacity style={styles.card}>
         <Text style={styles.title}>{deck.title}</Text>
-        <Text style={styles.detail}>Number of Cards: {deck.questions.length}</Text>
+        <Text style={styles.detail}>Number of Cards:  </Text>
       </TouchableOpacity>
   )
 }
@@ -42,3 +43,9 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
 })
+
+function mapStateToProps(decks){
+  return {
+    decks
+  }
+}

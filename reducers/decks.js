@@ -10,7 +10,7 @@ function decks (state={}, action) {
     case ADD_DECK:
       return {
         ...state,
-        ...action.deck
+        [action.deck.title] : action.deck
       }
     case REMOVE_DECK:
       return {

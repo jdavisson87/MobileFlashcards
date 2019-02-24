@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform } from 'r
 import { addDeck, fetchDecks } from '../utils/api'
 import { handleAddDeck } from '../actions/decks'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
+
 
 function SubmitBtn ({ onPress }) {
   return (
@@ -28,11 +30,21 @@ class NewDeck extends Component {
     const { name } = this.state
     const { dispatch } = this.props
     addDeck(name)
+
     dispatch(handleAddDeck(name))
-    fetchDecks()
-    //  .then((entries)=>console.log(entries))
+
+    //this.toHome()
+
+
+
     this.setState({name:''})
     //return to deck list screen
+  }
+
+  toHome = () => {
+    this.props.navigation.dispatch(NavigationActions.back({
+      key: 'DeckList'
+    }))
   }
 
   render(){

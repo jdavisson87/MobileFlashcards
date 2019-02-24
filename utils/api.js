@@ -11,7 +11,7 @@ export function addDeck(name){
   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
     [name]: {
       title: name,
-      questions:[]
+      questions: []
     }
   }))
 }
