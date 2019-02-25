@@ -48,7 +48,6 @@ class NewDeck extends Component {
 
   render(){
     const { name } = this.state
-    console.log(NavigationActions)
     return(
       <View style={styles.container}>
         <View style={styles.center}>

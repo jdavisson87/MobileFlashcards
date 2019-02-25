@@ -4,6 +4,7 @@ import { Constants } from 'expo'
 import NewDeck from './components/NewDeck'
 import DeckList from './components/DeckList'
 import DeckEdit from './components/DeckEdit'
+import DeckSelect from './components/DeckSelect'
 import { createBottomTabNavigator, createMaterialTopTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -34,7 +35,7 @@ const RouteConfigs = {
       tabBarLabel: 'New Deck',
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     }
-  }
+  },
 }
 
 const TabNavigatorConfig = {
@@ -71,6 +72,15 @@ const MainNavigator = createStackNavigator({
       header: null,
     },
   },
+  DeckEdit: {
+    screen: DeckEdit,
+    navigationOptions: ({ navigation }) => ({
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black',
+      }
+    })
+  }
 });
 
 const Main = createAppContainer(MainNavigator)

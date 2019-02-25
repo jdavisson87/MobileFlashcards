@@ -4,6 +4,7 @@ import { fetchDecks } from '../utils/api'
 import { receiveDecks } from '../actions/decks'
 import { connect } from 'react-redux'
 import DeckSelect from './DeckSelect'
+import { NavigationActions } from 'react-navigation'
 
 class DeckList extends Component {
 
@@ -13,9 +14,15 @@ class DeckList extends Component {
       .then((decks)=>dispatch(receiveDecks(JSON.parse(decks))))
   }
 
+  deckSelection = () => {
+    this.props.navigation.dispatch(NavigationActions.navigate({
+      routeName: 'DeckEdit',
+      key: 'DeckEdit'
+    }))
+  }
+
   render() {
     const { decks } = this.props.decks
-
     return(
       <View style={styles.container}>
         <Text style={styles.header}>DeckList</Text>
@@ -24,7 +31,7 @@ class DeckList extends Component {
           {Object.keys(decks).map(deck=>{
             return(
               <View style={styles.list} key={deck}>
-                <DeckSelect key={`${deck}1`} deck={decks[deck]}/>
+                <DeckSelect key={`${deck}1`} deck={decks[deck]} onPress={this.deckSelection}/>
               </View>
             )
           })}

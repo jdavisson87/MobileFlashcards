@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import DeckEdit from './DeckEdit'
+import { NavigationActions } from 'react-navigation'
 
-export default function DeckSelect ({ deck }) {
+export default function DeckSelect ({ deck, onPress }) {
 
   return (
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={onPress}>
         <Text style={styles.title}>{deck.title}</Text>
         <Text style={styles.detail}>Number of Cards:  {deck.questions.length}</Text>
       </TouchableOpacity>
