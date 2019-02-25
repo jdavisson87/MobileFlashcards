@@ -43,9 +43,3 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
 })
-
-function mapStateToProps(decks){
-  return {
-    decks
-  }
-}

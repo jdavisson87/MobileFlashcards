@@ -40,13 +40,15 @@ class NewDeck extends Component {
   }
 
   toHome = () => {
-    this.props.navigation.dispatch(NavigationActions.back({
+    this.props.navigation.dispatch(NavigationActions.navigate({
+      routeName: 'DeckList',
       key: 'DeckList'
     }))
   }
 
   render(){
     const { name } = this.state
+    console.log(NavigationActions)
     return(
       <View style={styles.container}>
         <View style={styles.center}>
