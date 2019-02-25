@@ -33,9 +33,7 @@ class NewDeck extends Component {
 
     dispatch(handleAddDeck(name))
 
-    //this.toHome()
-
-
+    this.toHome()
 
     this.setState({name:''})
     //return to deck list screen

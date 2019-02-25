@@ -22,7 +22,6 @@ class DeckList extends Component {
         <Text style={{fontSize:24, textAlign:'center'}}>Choose which deck you would like to view</Text>
         <ScrollView style={styles.list}>
           {Object.keys(decks).map(deck=>{
-            console.log(deck)
             return(
               <View style={styles.list} key={deck}>
                 <DeckSelect key={`${deck}1`} deck={decks[deck]}/>
