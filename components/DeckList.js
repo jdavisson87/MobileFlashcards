@@ -8,6 +8,10 @@ import { NavigationActions } from 'react-navigation'
 
 class DeckList extends Component {
 
+  state = {
+    currentDeck: ''
+  }
+
   componentDidMount(){
     const { dispatch } = this.props
     fetchDecks()
@@ -17,8 +21,8 @@ class DeckList extends Component {
   deckSelection = () => {
     this.props.navigation.dispatch(NavigationActions.navigate({
       routeName: 'DeckEdit',
-      key: 'DeckEdit'
     }))
+
   }
 
   render() {
@@ -29,10 +33,18 @@ class DeckList extends Component {
         <Text style={{fontSize:24, textAlign:'center'}}>Choose which deck you would like to view</Text>
         <ScrollView style={styles.list}>
           {Object.keys(decks).map(deck=>{
+            deck=decks[deck]
             return(
-              <View style={styles.list} key={deck}>
-                <DeckSelect key={`${deck}1`} deck={decks[deck]} onPress={this.deckSelection}/>
-              </View>
+              <TouchableOpacity key={`${deck.title}1`} style={styles.card} onPress={() => this.props.navigation.navigate(
+                'DeckEdit',
+                { deck }
+              )}>
+                <Text style={styles.title}>{deck.title}</Text>
+                <Text style={styles.detail}>Number of Cards: {deck.questions.length} </Text>
+              </TouchableOpacity>
+              // <View style={styles.list} key={deck}>
+              //   <DeckSelect key={`${deck}1`} deck={decks[deck]} onPress={this.deckSelection}/>
+              // </View>
             )
           })}
         </ScrollView>
@@ -56,7 +68,36 @@ const styles = StyleSheet.create({
   },
   list: {
     backgroundColor: 'white',
-  }
+  },
+  card: {
+    margin: 10,
+    alignItems: 'stretch',
+    paddingTop: 8,
+    paddingBottom: 8,
+    borderRadius: 3,
+    borderWidth: 1,
+    borderColor: 'gray',
+    backgroundColor:'lightgray',
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: 'rgba(0,0,0,0.24)',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    }
+  },
+  title: {
+    fontSize: 24,
+    textAlign: 'center',
+    paddingTop: 10,
+    fontWeight: 'bold',
+  },
+  detail: {
+    fontSize: 18,
+    textAlign: 'center',
+    paddingTop:8,
+    paddingBottom: 8,
+  },
 })
 
 function mapStateToProps (decks) {

@@ -4,7 +4,6 @@ import DeckEdit from './DeckEdit'
 import { NavigationActions } from 'react-navigation'
 
 export default function DeckSelect ({ deck, onPress }) {
-
   return (
       <TouchableOpacity style={styles.card} onPress={onPress}>
         <Text style={styles.title}>{deck.title}</Text>
