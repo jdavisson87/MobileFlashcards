@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
 function WithCards({deck}) {
   return(
@@ -21,6 +22,12 @@ function NoCards({deck}){
 
 class DeckEdit extends Component {
 
+  // addCard = () => {
+  //   this.props.navigation.dispatch(NavigationActions.navigate({
+  //     routeName: 'AddCard',
+  //   }))
+  // }
+
   render(){
     const { decks, deck } = this.props
     const questionLength = decks.decks[deck].questions.length
@@ -32,7 +39,10 @@ class DeckEdit extends Component {
           <Text style={styles.deckName}>{deck}</Text>
         </View>
         <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.buttons}>
+          <TouchableOpacity style={styles.buttons} onPress={() => this.props.navigation.navigate(
+            'AddCard',
+            { deck }
+          )}>
             <Text>Add Cards</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttons}>
@@ -40,7 +50,7 @@ class DeckEdit extends Component {
           </TouchableOpacity>
         </View>
         <View>
-          {questionLength===0
+          {questionLength>0
             ? <WithCards deck={deck}/>
             : <NoCards deck={deck}/>
           }
@@ -69,7 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttons: {
-
     margin: 15,
     padding: 10,
     borderRadius: 3,
