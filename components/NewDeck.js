@@ -29,20 +29,24 @@ class NewDeck extends Component {
   submit = () => {
     const { name } = this.state
     const { dispatch } = this.props
+
+
     addDeck(name)
 
     dispatch(handleAddDeck(name))
 
+    this.setState({name:''})
+
     this.toHome()
 
-    this.setState({name:''})
+
     //return to deck list screen
   }
 
   toHome = () => {
     this.props.navigation.dispatch(NavigationActions.navigate({
       routeName: 'DeckList',
-      key: 'DeckList'
+
     }))
   }
 

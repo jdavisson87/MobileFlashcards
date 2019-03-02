@@ -6,34 +6,26 @@ import { connect } from 'react-redux'
 import DeckSelect from './DeckSelect'
 import { NavigationActions } from 'react-navigation'
 
-class DeckList extends Component {
 
-  state = {
-    currentDeck: ''
-  }
+class DeckList extends Component {
 
   componentDidMount(){
     const { dispatch } = this.props
     fetchDecks()
       .then((decks)=>dispatch(receiveDecks(JSON.parse(decks))))
-  }
-
-  deckSelection = () => {
-    this.props.navigation.dispatch(NavigationActions.navigate({
-      routeName: 'DeckEdit',
-    }))
 
   }
 
   render() {
-    const { decks } = this.props.decks
+    const { list } = this.props
+
     return(
       <View style={styles.container}>
         <Text style={styles.header}>DeckList</Text>
         <Text style={{fontSize:24, textAlign:'center'}}>Choose which deck you would like to view</Text>
         <ScrollView style={styles.list}>
-          {Object.keys(decks).map(deck=>{
-            deck=decks[deck]
+          {Object.keys(list).map(deck=>{
+            deck=list[deck]
             return(
               <TouchableOpacity key={`${deck.title}1`} style={styles.card} onPress={() => this.props.navigation.navigate(
                 'DeckEdit',
@@ -42,9 +34,6 @@ class DeckList extends Component {
                 <Text style={styles.title}>{deck.title}</Text>
                 <Text style={styles.detail}>Number of Cards: {deck.questions.length} </Text>
               </TouchableOpacity>
-              // <View style={styles.list} key={deck}>
-              //   <DeckSelect key={`${deck}1`} deck={decks[deck]} onPress={this.deckSelection}/>
-              // </View>
             )
           })}
         </ScrollView>
@@ -100,9 +89,11 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps (decks) {
+function mapStateToProps (state) {
+  const list = state.decks
   return{
-    decks
+
+    list
   }
 }
 

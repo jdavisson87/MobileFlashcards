@@ -9,7 +9,7 @@ export function receiveDecks (decks) {
   }
 }
 
-function addDeck (deck) {
+function addDeck ({deck}) {
   return {
     type: ADD_DECK,
     deck,
@@ -17,16 +17,17 @@ function addDeck (deck) {
 }
 
 export function handleAddDeck (name) {
+  const key=name
+  const deck = {
+    title: name,
+    questions: [],
+  }
   return (dispatch) => {
-    const deck = {
-      title: name,
-      questions: [],
-    }
-    dispatch(addDeck(deck))
+    dispatch(addDeck({deck}))
   }
 }
 
-export function removeDeck (deck) {
+export function removeD (deck) {
   return {
     type: REMOVE_DECK,
     deck,

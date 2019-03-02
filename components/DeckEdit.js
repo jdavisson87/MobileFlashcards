@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
+import { removeDeck } from '../utils/api'
+import { removeD } from '../actions/decks'
 
 function WithCards({deck}) {
   return(
     <View >
-
       <Text>this deck has cards</Text>
     </View>
   )
@@ -22,21 +23,35 @@ function NoCards({deck}){
 
 class DeckEdit extends Component {
 
-  // addCard = () => {
-  //   this.props.navigation.dispatch(NavigationActions.navigate({
-  //     routeName: 'AddCard',
-  //   }))
-  // }
+  remove = () => {
+    const {deck, goBack , remove} = this.props
+    remove()
+    goBack()
+    removeDeck(deck)
+  }
+
+  toHome = () => {
+    this.props.navigation.dispatch(NavigationActions.navigate({
+      routeName: 'DeckList',
+    }))
+  }
+
+componentWillMount() {
+  const deckName = this.props.deck
+  const questionLength = this.props.decks.decks[deckName].questions.length
+  this.setState({deckName, questionLength})
+}
+
 
   render(){
     const { decks, deck } = this.props
-    const questionLength = decks.decks[deck].questions.length
-
+    const { deckName, questionLength } = this.state
     return(
       <View>
         <View>
           <Text style={styles.deckHeader}>DeckEdit</Text>
           <Text style={styles.deckName}>{deck}</Text>
+          <Text style={styles.deckHeader}>{questionLength} cards</Text>
         </View>
         <View style={styles.btnContainer}>
           <TouchableOpacity style={styles.buttons} onPress={() => this.props.navigation.navigate(
@@ -45,7 +60,7 @@ class DeckEdit extends Component {
           )}>
             <Text>Add Cards</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttons}>
+          <TouchableOpacity style={styles.buttons} onPress={this.remove}>
             <Text>Remove Deck</Text>
           </TouchableOpacity>
         </View>
@@ -100,8 +115,18 @@ function mapStateToProps (decks, {navigation}) {
 
   return{
     deck,
-    decks
+    decks,
   }
 }
 
-export default connect(mapStateToProps)(DeckEdit)
+function mapDispatchToProps (dispatch, { navigation }) {
+  const deck  = navigation.state.params.deck.title
+  return {
+    remove: ()=> dispatch(removeD(deck)),
+    goBack: () => navigation.navigate(
+      'DeckList'
+    )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckEdit)

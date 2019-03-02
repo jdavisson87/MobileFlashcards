@@ -10,11 +10,13 @@ function decks (state={}, action) {
     case ADD_DECK:
       return {
         ...state,
-        [action.deck.title] : action.deck
+        [action.deck.title]: action.deck
       }
     case REMOVE_DECK:
+      const newState = state
+      delete newState[action.deck]
       return {
-        ...state
+        ...newState
       }
     default:
       return state
