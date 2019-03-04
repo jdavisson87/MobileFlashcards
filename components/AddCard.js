@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-nativ
 import { connect } from 'react-redux'
 import { handleAddCard } from '../actions/decks'
 import { addCard } from '../utils/api'
+import { NavigationActions } from 'react-navigation'
+
+
 
 class AddCard extends Component {
   state = {
@@ -27,6 +30,14 @@ class AddCard extends Component {
 
     dispatch(handleAddCard(deckName, query))
     this.setState({question:'', answer:''})
+
+    this.toHome()
+  }
+
+  toHome = () => {
+    this.props.navigation.dispatch(NavigationActions.navigate({
+      routeName: 'DeckList',
+    }))
   }
 
   render(){

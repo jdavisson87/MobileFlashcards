@@ -46,7 +46,6 @@ class NewDeck extends Component {
   toHome = () => {
     this.props.navigation.dispatch(NavigationActions.navigate({
       routeName: 'DeckList',
-
     }))
   }
 
