@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform, ScrollVi
 import { fetchDecks } from '../utils/api'
 import { receiveDecks } from '../actions/decks'
 import { connect } from 'react-redux'
-import DeckSelect from './DeckSelect'
 import { NavigationActions } from 'react-navigation'
 
 

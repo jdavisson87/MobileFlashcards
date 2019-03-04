@@ -1,11 +1,38 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { connect } from 'react-redux'
+import { handleAddCard } from '../actions/decks'
+import { addCard } from '../utils/api'
 
 class AddCard extends Component {
+  state = {
+    question: '',
+    answer: ''
+  }
+
+  handleQuestionChange = (question) =>{
+    this.setState({ question })
+  }
+
+  handleAnswerChange = (answer) =>{
+    this.setState({ answer })
+  }
+
+  submit = () =>{
+    const { dispatch, deckName } = this.props
+    const { question, answer } = this.state
+    const query = {question, answer}
+
+    addCard(deckName, query)
+
+    dispatch(handleAddCard(deckName, query))
+    this.setState({question:'', answer:''})
+  }
+
   render(){
     const { deck, deckName } = this.props
-    console.log(deck, deckName)
+    const { question, answer } = this.state
+
     return(
       <View>
         <View>
@@ -13,15 +40,19 @@ class AddCard extends Component {
           <TextInput
           style={styles.userInput}
           placeholder='Enter Question'
+          onChangeText={this.handleQuestionChange}
+          value={question}
           />
           <Text style={styles.prompts}>Please Enter Your Answer</Text>
           <TextInput
           style={styles.userInput}
           placeholder='Enter Answer'
+          onChangeText={this.handleAnswerChange}
+          value={answer}
           />
         </View>
         <View>
-          <TouchableOpacity style={styles.buttons}>
+          <TouchableOpacity style={styles.buttons} onPress={this.submit}>
             <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Submit</Text>
           </TouchableOpacity>
         </View>

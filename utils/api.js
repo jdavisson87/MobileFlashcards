@@ -26,3 +26,15 @@ export function removeDeck (name) {
       return AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
     })
 }
+
+export function addCard (deckName, card) {
+  return AsyncStorage.getItem(DECK_STORAGE_KEY)
+    .then(JSON.parse)
+    .then(data => {
+      data[deckName].questions.push({
+        question: card.question,
+        answer: card.answer
+      })
+      return AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
+    })
+}
