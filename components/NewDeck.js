@@ -39,8 +39,6 @@ class NewDeck extends Component {
 
     this.toHome()
 
-
-    //return to deck list screen
   }
 
   toHome = () => {
