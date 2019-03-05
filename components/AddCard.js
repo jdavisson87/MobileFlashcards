@@ -25,14 +25,21 @@ class AddCard extends Component {
     const { dispatch, deckName } = this.props
     const { question, answer } = this.state
     const query = {question, answer}
+    if(question.trim()==='' && answer.trim()===''){
+      alert('Please enter a question and answer')
+    }else if(question.trim()===''){
+      alert('Please enter a question')
+    }else if(answer.trim()===''){
+      alert('Please enter an answer')
+    }else{
+      addCard(deckName, query)
 
-    addCard(deckName, query)
+      dispatch(handleAddCard(deckName, query))
 
-    dispatch(handleAddCard(deckName, query))
+      this.setState({question:'', answer:''})
 
-    this.setState({question:'', answer:''})
-
-    this.toHome()
+      this.toHome()
+    }
   }
 
   toHome = () => {
