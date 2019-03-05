@@ -25,7 +25,10 @@ class DeckEdit extends Component {
             )}>
               <Text style={styles.txt}>Add Cards</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.buttons, styles.startbtn]}>
+            <TouchableOpacity style={[styles.buttons, styles.startbtn]} onPress={() => navigation.navigate(
+              'QuizView',
+              { deck }
+            )}>
               <Text style={styles.txt}>Start Quiz</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.buttons, styles.removebtn]} onPress={() => navigation.navigate(

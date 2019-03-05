@@ -6,6 +6,7 @@ import DeckList from './components/DeckList'
 import DeckEdit from './components/DeckEdit'
 import AddCard from './components/AddCard'
 import RemoveConfirm from './components/RemoveConfirm'
+import QuizView from './components/QuizView'
 import { createBottomTabNavigator, createMaterialTopTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -93,6 +94,15 @@ const MainNavigator = createStackNavigator({
   },
   RemoveConfirm: {
     screen: RemoveConfirm,
+    navigationOptions: ({ navigation }) => ({
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black',
+      }
+    })
+  },
+  QuizView: {
+    screen: QuizView,
     navigationOptions: ({ navigation }) => ({
       headerTintColor: 'white',
       headerStyle: {
