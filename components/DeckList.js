@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
 function mapStateToProps (state) {
   const list = state.decks
   return{
-
     list
   }
 }
