@@ -29,6 +29,7 @@ class AddCard extends Component {
     addCard(deckName, query)
 
     dispatch(handleAddCard(deckName, query))
+
     this.setState({question:'', answer:''})
 
     this.toHome()
@@ -36,7 +37,7 @@ class AddCard extends Component {
 
   toHome = () => {
     this.props.navigation.dispatch(NavigationActions.navigate({
-      routeName: 'DeckList',
+      routeName: 'DeckEdit',
     }))
   }
 
