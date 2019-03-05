@@ -29,9 +29,10 @@ class NewDeck extends Component {
   submit = () => {
     const { name } = this.state
     const { dispatch, decks } = this.props
-    console.log('😈', Object.keys(decks.decks).includes(name))
-    if(Object.keys(decks.decks).includes(name)){
-      alert('You already have a deck with this name.  Please enter a new Name')
+    if(name.trim()===''){
+      alert('Please enter a deck name')
+    }else if(Object.keys(decks.decks).includes(name)){
+      alert('You already have a deck with this name.  Please enter a new name')
       this.setState({name: ''})
     }else{
       addDeck(name)
