@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
     padding: 15
   },
     iosSubmitBtn: {
-    backgroundColor: 'black',
+    backgroundColor: 'green',
+    borderColor: 'darkgreen',
     padding: 10,
     borderRadius: 7,
     height: 45,
@@ -81,7 +82,8 @@ const styles = StyleSheet.create({
     marginRight: 40,
   },
   androidSubmitBtn: {
-    backgroundColor: 'black',
+    backgroundColor: 'green',
+    borderColor: 'darkgreen',
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,

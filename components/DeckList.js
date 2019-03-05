@@ -25,10 +25,11 @@ class DeckList extends Component {
         <ScrollView style={styles.list}>
           {Object.keys(list).map(deck=>{
             deck=list[deck]
+            questionLength = deck.questions.length
             return(
               <TouchableOpacity key={`${deck.title}1`} style={styles.card} onPress={() => this.props.navigation.navigate(
                 'DeckEdit',
-                { deck }
+                { deck, questionLength }
               )}>
                 <Text style={styles.title}>{deck.title}</Text>
                 <Text style={styles.detail}>Number of Cards: {deck.questions.length} </Text>

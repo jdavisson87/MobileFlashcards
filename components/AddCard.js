@@ -65,7 +65,7 @@ class AddCard extends Component {
         </View>
         <View>
           <TouchableOpacity style={styles.buttons} onPress={this.submit}>
-            <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Submit</Text>
+            <Text style={{textAlign: 'center', fontWeight: 'bold', color: 'white'}}>Submit</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 3,
     borderWidth: 1,
-    borderColor: 'gray',
-    backgroundColor:'lightgray',
+    borderColor: 'darkgreen',
+    backgroundColor:'green',
     shadowRadius: 3,
     shadowOpacity: 0.8,
     shadowColor: 'rgba(0,0,0,0.24)',

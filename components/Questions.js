@@ -1,13 +1,27 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 
-export default function Questions ({ card }) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.question}>Q: {card.question}</Text>
-      <Text style={styles.answer}>A: {card.answer}</Text>
-    </View>
-  )
+export default function Questions ({ deck }) {
+  if(deck.questions.length>0){
+    return (
+      <ScrollView>
+        {deck.questions.map(card=>{
+            return(
+              <View key={card.question} style={styles.container}>
+                <Text style={styles.question}>Q: {card.question}</Text>
+                <Text style={styles.answer}>A: {card.answer}</Text>
+              </View>
+            )
+          })}
+      </ScrollView>
+    )
+  }else{
+    return(
+      <View style={styles.textCenter}>
+        <Text style={styles.textCenter}>You currently don't have any cards in this deck. Please add cards to this deck.</Text>
+      </View>
+    )
+  }
 }
 
 const styles=StyleSheet.create({
@@ -34,5 +48,8 @@ const styles=StyleSheet.create({
   },
   answer:{
     fontSize: 16,
-  }
+  },
+  textCenter: {
+    textAlign: 'center'
+  },
 })
