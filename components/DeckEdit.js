@@ -19,20 +19,20 @@ class DeckEdit extends Component {
             <Text style={styles.deckHeader}>{list[deck].questions.length} cards</Text>
           </View>
           <View style={styles.btnContainer}>
-            <TouchableOpacity style={styles.buttons} onPress={() => navigation.navigate(
+            <TouchableOpacity style={[styles.buttons, styles.addbtn]} onPress={() => navigation.navigate(
               'AddCard',
               { deck }
             )}>
-              <Text>Add Cards</Text>
+              <Text style={styles.txt}>Add Cards</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttons}>
-              <Text>Start Quiz</Text>
+            <TouchableOpacity style={[styles.buttons, styles.startbtn]}>
+              <Text style={styles.txt}>Start Quiz</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttons} onPress={() => navigation.navigate(
+            <TouchableOpacity style={[styles.buttons, styles.removebtn]} onPress={() => navigation.navigate(
               'RemoveConfirm',
               { deck }
             )}>
-              <Text>Remove Deck</Text>
+              <Text style={styles.txt}>Remove Deck</Text>
             </TouchableOpacity>
           </View>
           <Questions deck={list[deck]}/>
@@ -66,12 +66,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttons: {
-    margin: 15,
+    margin: 10,
     padding: 10,
     borderRadius: 3,
     borderWidth: 1,
-    borderColor: 'gray',
-    backgroundColor:'lightgray',
     shadowRadius: 3,
     shadowOpacity: 0.8,
     shadowColor: 'rgba(0,0,0,0.24)',
@@ -79,7 +77,24 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     }
-  }
+  },
+  addbtn:{
+    backgroundColor: 'blue',
+    borderColor: 'darkblue'
+  },
+  startbtn:{
+    backgroundColor: 'green',
+    borderColor: 'darkgreen'
+  },
+  removebtn: {
+    backgroundColor: 'red',
+    borderColor: 'darkred'
+  },
+  txt:{
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 })
 
 function mapStateToProps (state, {navigation}) {
