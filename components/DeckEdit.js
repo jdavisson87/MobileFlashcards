@@ -1,19 +1,24 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { removeDeck } from '../utils/api'
 import { removeD } from '../actions/decks'
+import Questions from '../components/Questions'
 
 function WithCards({deck}) {
   return(
-    <View >
-      <Text>this deck has cards</Text>
-    </View>
+    <ScrollView>
+      {deck.questions.map(card=>{
+          return(
+            <Questions key={card.question} card={card}/>
+          )
+        })}
+    </ScrollView>
   )
 }
 
-function NoCards({deck}){
+function NoCards(){
   return(
     <View style={styles.textCenter}>
       <Text style={styles.textCenter}>You currently don't have any cards in this deck. Please add cards to this deck.</Text>
@@ -23,11 +28,17 @@ function NoCards({deck}){
 
 class DeckEdit extends Component {
 
+  state={
+    questionLength: 0
+  }
+
   remove = () => {
-    const {deck, goBack , remove} = this.props
+    const {deck, goBack, remove} = this.props
+    this.setState({questionLength: 0})
     remove()
     goBack()
     removeDeck(deck)
+
   }
 
   toHome = () => {
@@ -36,16 +47,17 @@ class DeckEdit extends Component {
     }))
   }
 
-componentWillMount() {
-  const deckName = this.props.deck
-  const questionLength = this.props.decks.decks[deckName].questions.length
-  this.setState({deckName, questionLength})
-}
-
+  componentWillMount() {
+    const {deck, decks} = this.props
+    const questionLength = decks.decks[deck].questions.length
+    this.setState({questionLength})
+  }
 
   render(){
-    const { decks, deck } = this.props
-    const { deckName, questionLength } = this.state
+    const { decks, deck,  } = this.props
+    const { questionLength } =this.state
+
+
     return(
       <View>
         <View>
@@ -60,14 +72,17 @@ componentWillMount() {
           )}>
             <Text>Add Cards</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.buttons}>
+            <Text>Start Quiz</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.buttons} onPress={this.remove}>
             <Text>Remove Deck</Text>
           </TouchableOpacity>
         </View>
         <View>
           {questionLength>0
-            ? <WithCards deck={deck}/>
-            : <NoCards deck={deck}/>
+            ? <WithCards deck={decks.decks[deck]}/>
+            : <NoCards/>
           }
         </View>
       </View>
@@ -112,10 +127,10 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (decks, {navigation}) {
   const deck= navigation.state.params.deck.title
-
   return{
     deck,
     decks,
+
   }
 }
 
