@@ -28,17 +28,20 @@ class NewDeck extends Component {
 
   submit = () => {
     const { name } = this.state
-    const { dispatch } = this.props
+    const { dispatch, decks } = this.props
+    console.log('😈', Object.keys(decks.decks).includes(name))
+    if(Object.keys(decks.decks).includes(name)){
+      alert('You already have a deck with this name.  Please enter a new Name')
+      this.setState({name: ''})
+    }else{
+      addDeck(name)
 
+      dispatch(handleAddDeck(name))
 
-    addDeck(name)
+      this.setState({name:''})
 
-    dispatch(handleAddDeck(name))
-
-    this.setState({name:''})
-
-    this.toHome()
-
+      this.toHome()
+    }
   }
 
   toHome = () => {
@@ -49,6 +52,8 @@ class NewDeck extends Component {
 
   render(){
     const { name } = this.state
+    const { decks } = this.props
+
     return(
       <View style={styles.container}>
         <View style={styles.center}>
