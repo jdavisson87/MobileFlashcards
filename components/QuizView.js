@@ -37,6 +37,20 @@ class QuizView extends Component {
             <Text style={styles.quiz}>{showQuestion ? currentQuestion.question : currentQuestion.answer}</Text>
           </View>
           <View>
+          {showQuestion ?
+            <View>
+              <Text>Flip the card to see the answer</Text>
+            </View>
+            : (
+            <View style={styles.btnContainer}>
+              <TouchableOpacity style={[styles.btn, styles.correctBtn]}>
+                <Text style={styles.btnTxt} onPress={() => this.setState({showQuestion: !showQuestion})}>Correct</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.btn, styles.wrongBtn]}>
+                <Text style={styles.btnTxt} onPress={() => this.setState({showQuestion: !showQuestion})}>Incorrect</Text>
+              </TouchableOpacity>
+            </View>)
+          }
             <TouchableOpacity style={styles.btn}>
               <Text style={styles.btnTxt} onPress={() => this.setState({showQuestion: !showQuestion})}>Flip Card</Text>
             </TouchableOpacity>
@@ -70,9 +84,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 20
   },
+  btnContainer:{
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
   btn: {
-    backgroundColor: 'blue',
-    borderColor: 'darkblue',
+    backgroundColor:'blue',
+    borderColor:'darkblue',
     margin: 10,
     padding: 10,
     borderRadius: 3,
@@ -90,6 +108,14 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontWeight: 'bold'
+  },
+  correctBtn: {
+    backgroundColor: 'green',
+    borderColor: 'darkgreen',
+  },
+  wrongBtn: {
+    backgroundColor: 'red',
+    borderColor: 'darkred'
   }
 })
 
