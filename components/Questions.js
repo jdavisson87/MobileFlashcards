@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 
 export default function Questions ({ deck }) {
-  if(deck.questions.length>0){
+  if(deck && deck.questions && deck.questions.length>0){
     return (
       <ScrollView>
         {deck.questions.map(card=>{

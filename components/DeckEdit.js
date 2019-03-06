@@ -16,7 +16,7 @@ class DeckEdit extends Component {
           <View>
             <Text style={styles.deckHeader}>DeckEdit</Text>
             <Text style={styles.deckName}>{deck}</Text>
-            <Text style={styles.deckHeader}>{list[deck].questions.length} cards</Text>
+            <Text style={styles.deckHeader}>{list[deck] && list[deck].questions.length} cards</Text>
           </View>
           <View style={styles.btnContainer}>
             <TouchableOpacity style={[styles.buttons, styles.addbtn]} onPress={() => navigation.navigate(
