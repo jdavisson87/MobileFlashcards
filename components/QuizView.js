@@ -11,6 +11,11 @@ class QuizView extends Component {
 
   }
 
+  answer = () => {
+    const { showQuestion } = this.state
+    this.setState({showQuestion: !showQuestion})
+  }
+
   componentWillMount(){
     const { deckName, decks } = this.props
     const questions = decks.decks[deckName].questions
@@ -20,7 +25,6 @@ class QuizView extends Component {
 
   render(){
     const { deckName, questions, correctAnswers, currentQuestion, showQuestion } = this.state
-    console.log(this.state)
     return questions.length===0 ? (
         <View>
           <Text style={styles.headerTxt}>{deckName}</Text>
@@ -39,15 +43,15 @@ class QuizView extends Component {
           <View>
           {showQuestion ?
             <View>
-              <Text>Flip the card to see the answer</Text>
+              <Text style={{textAlign: 'center', fontSize:16}}>Flip the card to see the answer</Text>
             </View>
             : (
             <View style={styles.btnContainer}>
               <TouchableOpacity style={[styles.btn, styles.correctBtn]}>
-                <Text style={styles.btnTxt} onPress={() => this.setState({showQuestion: !showQuestion})}>Correct</Text>
+                <Text style={styles.btnTxt} onPress={this.answer}>Correct</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.btn, styles.wrongBtn]}>
-                <Text style={styles.btnTxt} onPress={() => this.setState({showQuestion: !showQuestion})}>Incorrect</Text>
+                <Text style={styles.btnTxt} onPress={this.answer}>Incorrect</Text>
               </TouchableOpacity>
             </View>)
           }
@@ -81,7 +85,8 @@ const styles = StyleSheet.create({
   },
   quiz: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 24,
+    fontWeight: 'bold',
     padding: 20
   },
   btnContainer:{
