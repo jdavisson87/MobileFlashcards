@@ -31,7 +31,7 @@ class NewDeck extends Component {
     const { dispatch, decks } = this.props
     if(name.trim()===''){
       alert('Please enter a deck name')
-    }else if(Object.keys(decks.decks).includes(name)){
+    }else if(Object.keys(decks.decks).includes(name.trim())){
       alert('You already have a deck with this name.  Please enter a new name')
       this.setState({name: ''})
     }else{
