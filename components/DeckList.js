@@ -29,7 +29,7 @@ class DeckList extends Component {
             return(
               <TouchableOpacity key={`${deck.title}1`} style={styles.card} onPress={() => this.props.navigation.navigate(
                 'DeckEdit',
-                { deck, questionLength }
+                { deck }
               )}>
                 <Text style={styles.title}>{deck.title}</Text>
                 <Text style={styles.detail}>Number of Cards: {deck.questions.length} </Text>

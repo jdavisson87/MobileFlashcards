@@ -35,20 +35,23 @@ class NewDeck extends Component {
       alert('You already have a deck with this name.  Please enter a new name')
       this.setState({name: ''})
     }else{
-      addDeck(name)
-
       dispatch(handleAddDeck(name))
 
+      addDeck(name)
+        .then(()=> this.toHome(name))
       this.setState({name:''})
 
-      this.toHome()
+
     }
   }
 
-  toHome = () => {
-    this.props.navigation.dispatch(NavigationActions.navigate({
-      routeName: 'DeckList',
-    }))
+  toHome = (name) => {
+    const { decks } = this.props
+    const deck = decks.decks[name]
+    this.props.navigation.navigate(
+     'DeckEdit',
+     { deck }
+   )
   }
 
   render(){
