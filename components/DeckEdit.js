@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { removeDeck } from '../utils/api'
@@ -8,11 +8,26 @@ import Questions from '../components/Questions'
 
 class DeckEdit extends Component {
 
+  state= {
+    fadeAnim: new Animated.Value(0),
+  }
+
+  componentDidMount(){
+    Animated.timing(
+      this.state.fadeAnim,
+      {
+        toValue: 1,
+        duration: 3000,
+      }
+    ).start()
+  }
+
   render(){
     const { list, deck, navigation } = this.props
+    let { fadeAnim } = this.state
 
       return(
-        <View style={styles.container}>
+        <Animated.View style={[{opacity: fadeAnim},styles.container]}>
           <View>
             <Text style={styles.deckHeader}>DeckEdit</Text>
             <Text style={styles.deckName}>{deck}</Text>
@@ -39,7 +54,7 @@ class DeckEdit extends Component {
             </TouchableOpacity>
           </View>
           <Questions deck={list[deck]}/>
-        </View>
+        </Animated.View>
       )
   }
 }
