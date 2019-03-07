@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class QuizView extends Component {
   state={
@@ -18,6 +19,13 @@ class QuizView extends Component {
     const currentQuestion = questions[Math.floor(Math.random() * questions.length)]
     this.setState({ questions, deckName, currentQuestion })
   }
+
+  start = () =>{
+    this.setState({start: true})
+    clearLocalNotification()
+      .then(setLocalNotification)
+  }
+
 
   wrong = () => {
     const { showQuestion, questionNo, questions, currentQuestion } = this.state
@@ -58,7 +66,7 @@ class QuizView extends Component {
       return(
         <View>
           <Text style={[styles.headerTxt, {paddingTop: 50}]}>Are you ready?</Text>
-          <TouchableOpacity style={[styles.btn, styles.correctBtn, {margin: 30}]} onPress={() => this.setState({start: true})}>
+          <TouchableOpacity style={[styles.btn, styles.correctBtn, {margin: 30}]} onPress={this.start}>
             <Text style={styles.btnTxt}>Start</Text>
           </TouchableOpacity>
         </View>

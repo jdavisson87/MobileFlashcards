@@ -13,6 +13,7 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import middleware from './middleware'
 import { Entypo, FontAwesome } from '@expo/vector-icons'
+import { setLocalNotification } from './utils/helpers'
 
 
 function FlashCardStatusBar({ backgroundColor, ...props}) {
@@ -117,6 +118,9 @@ const MainNavigator = createStackNavigator({
 const Main = createAppContainer(MainNavigator)
 
 export default class App extends React.Component {
+  componentDidMount () {
+    setLocalNotification()
+  }
   render() {
     return (
       <Provider store={createStore(reducer, middleware)}>
