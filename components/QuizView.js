@@ -14,10 +14,23 @@ class QuizView extends Component {
   }
 
   componentWillMount(){
+    this.init()
+  }
+
+  init = () => {
+
     const { deckName, decks } = this.props
     const questions = decks.decks[deckName].questions
     const currentQuestion = questions[Math.floor(Math.random() * questions.length)]
-    this.setState({ questions, deckName, currentQuestion })
+    this.setState({
+      questions,
+      deckName,
+      currentQuestion,
+      start: false,
+      questionNo: 1,
+      showQuestion: true,
+      correctAnswers: 0
+     })
   }
 
   start = () =>{
@@ -127,6 +140,9 @@ class QuizView extends Component {
               this.props.navigation.goBack()
             }}>
             <Text style={styles.btnTxt}>Go Back to the Deck List</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btn} onPress={this.init}>
+            <Text style={styles.btnTxt}>Restart the Quiz</Text>
           </TouchableOpacity>
         </View>
       )
