@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { handleAddCard } from '../actions/decks'
 import { addCard } from '../utils/api'
@@ -53,7 +53,7 @@ class AddCard extends Component {
     const { question, answer } = this.state
 
     return(
-      <View>
+      <KeyboardAvoidingView behavior='padding'>
         <View>
           <Text style={styles.prompts}>Please Enter Your Question</Text>
           <TextInput
@@ -75,7 +75,7 @@ class AddCard extends Component {
             <Text style={{textAlign: 'center', fontWeight: 'bold', color: 'white'}}>Submit</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

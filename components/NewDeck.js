@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform, KeyboardAvoidingView } from 'react-native'
 import { addDeck, fetchDecks } from '../utils/api'
 import { handleAddDeck } from '../actions/decks'
 import { connect } from 'react-redux'
@@ -59,7 +59,7 @@ class NewDeck extends Component {
     const { decks } = this.props
 
     return(
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={styles.center}>
           <Text style={{fontSize:30, color:'black', textAlign:'center'}}>What is the name of your New Deck</Text>
           <TextInput
@@ -70,7 +70,7 @@ class NewDeck extends Component {
           />
           <SubmitBtn onPress={this.submit}/>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
