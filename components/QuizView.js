@@ -115,6 +115,11 @@ class QuizView extends Component {
               <Text style={styles.completeTxt}>Keep studying and you will be the master of this deck!</Text>
             </View>
           }
+          <TouchableOpacity style={[styles.btn, styles.correctBtn]} onPress={() => {
+              this.props.navigation.goBack()
+            }}>
+            <Text style={styles.btnTxt}>Go Back to the Deck List</Text>
+          </TouchableOpacity>
         </View>
       )
   }
