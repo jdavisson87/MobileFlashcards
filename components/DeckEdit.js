@@ -17,7 +17,7 @@ class DeckEdit extends Component {
       this.state.fadeAnim,
       {
         toValue: 1,
-        duration: 3000,
+        duration: 1500,
       }
     ).start()
   }
