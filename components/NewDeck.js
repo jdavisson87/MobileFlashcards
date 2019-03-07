@@ -31,27 +31,27 @@ class NewDeck extends Component {
     const { dispatch, decks } = this.props
     if(name.trim()===''){
       alert('Please enter a deck name')
+
     }else if(Object.keys(decks.decks).includes(name.trim())){
       alert('You already have a deck with this name.  Please enter a new name')
       this.setState({name: ''})
+
     }else{
       dispatch(handleAddDeck(name))
-
       addDeck(name)
         .then(()=> this.toHome(name))
       this.setState({name:''})
-
-
     }
   }
 
   toHome = (name) => {
     const { decks } = this.props
     const deck = decks.decks[name]
-    this.props.navigation.navigate(
-     'DeckEdit',
-     { deck }
-   )
+    const navigateAction = NavigationActions.navigate({
+      routeName: 'DeckEdit',
+      params: { deck },
+    })
+    this.props.navigation.dispatch(navigateAction)
   }
 
   render(){

@@ -56,8 +56,10 @@ const TabNavigatorConfig = {
       },
       shadowRadius: 6,
       shadowOpacity: 1
-    }
-  }
+    },
+    animationEnabled: true,
+    swipeEnabled: true,
+  },
 }
 
 const Tabs =

@@ -8,12 +8,8 @@ class QuizView extends Component {
     questions:[],
     deckName: '',
     showQuestion: true,
-
-  }
-
-  answer = () => {
-    const { showQuestion } = this.state
-    this.setState({showQuestion: !showQuestion})
+    start: false,
+    questionNo: 1,
   }
 
   componentWillMount(){
@@ -23,42 +19,102 @@ class QuizView extends Component {
     this.setState({ questions, deckName, currentQuestion })
   }
 
+  wrong = () => {
+    const { showQuestion, questionNo, questions, currentQuestion } = this.state
+    const newQuestions = questions.filter(q=> q.question !== currentQuestion.question)
+    const newCurrent = newQuestions[Math.floor(Math.random() * newQuestions.length)]
+    this.setState(state => {
+      return {
+        ...state,
+        questions: newQuestions,
+        showQuestion: !showQuestion,
+        questionNo: (questionNo+1),
+        currentQuestion: newCurrent
+      }
+    })
+  }
+
+  correct = () => {
+    const { showQuestion, questionNo, questions, currentQuestion, correctAnswers } = this.state
+    const newQuestions = questions.filter(q => q.question !== currentQuestion.question)
+    const newCurrent = newQuestions[Math.floor(Math.random() * newQuestions.length)]
+    this.setState(state => {
+      return {
+        ...state,
+        questions: newQuestions,
+        showQuestion: !showQuestion,
+        questionNo: (questionNo+1),
+        correctAnswers: (correctAnswers+1),
+        currentQuestion: newCurrent
+      }
+    })
+  }
+
   render(){
-    const { deckName, questions, correctAnswers, currentQuestion, showQuestion } = this.state
-    return questions.length===0 ? (
+    const { deckName, questions, correctAnswers, currentQuestion, showQuestion, start, questionNo } = this.state
+    const { decks } = this.props
+
+    if(start===false){
+      return(
         <View>
-          <Text style={styles.headerTxt}>{deckName}</Text>
+          <Text style={[styles.headerTxt, {paddingTop: 50}]}>Are you ready?</Text>
+          <TouchableOpacity style={[styles.btn, styles.correctBtn, {margin: 30}]} onPress={() => this.setState({start: true})}>
+            <Text style={styles.btnTxt}>Start</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
+
+    return decks.decks[deckName].questions.length===0 ? (
+        <View>
+          <Text style={styles.headerTxt}>{deckName} deck</Text>
           <Text style={styles.prompt}>You currently don't have any cards in this deck. Please go back and add cards to this deck</Text>
         </View>
       )
-      : (
+      : questionNo!== (decks.decks[deckName].questions.length+1) ? (
         <View>
           <View style={styles.header}>
-            <Text style={styles.headerTxt}>{deckName}</Text>
+            <Text style={styles.headerTxt}>{deckName} deck</Text>
           </View>
           <View>
-            <Text style={styles.questionHeader}>{showQuestion ? 'Question: ' : 'Answer: '}</Text>
+            <Text style={styles.questionHeader}>{showQuestion ? `Question ${questionNo} of ${decks.decks[deckName].questions.length}:`: 'Answer: '}</Text>
             <Text style={styles.quiz}>{showQuestion ? currentQuestion.question : currentQuestion.answer}</Text>
           </View>
           <View>
           {showQuestion ?
             <View>
               <Text style={{textAlign: 'center', fontSize:16}}>Flip the card to see the answer</Text>
+              <TouchableOpacity style={styles.btn} onPress={() => this.setState({showQuestion: !showQuestion})}>
+                <Text style={styles.btnTxt}>Flip Card</Text>
+              </TouchableOpacity>
             </View>
             : (
             <View style={styles.btnContainer}>
-              <TouchableOpacity style={[styles.btn, styles.correctBtn]}>
-                <Text style={styles.btnTxt} onPress={this.answer}>Correct</Text>
+              <TouchableOpacity style={[styles.btn, styles.correctBtn]} onPress={this.correct}>
+                <Text style={styles.btnTxt}>Correct</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.btn, styles.wrongBtn]}>
-                <Text style={styles.btnTxt} onPress={this.answer}>Incorrect</Text>
+              <TouchableOpacity style={[styles.btn, styles.wrongBtn]} onPress={this.wrong}>
+                <Text style={styles.btnTxt}>Incorrect</Text>
               </TouchableOpacity>
             </View>)
           }
-            <TouchableOpacity style={styles.btn}>
-              <Text style={styles.btnTxt} onPress={() => this.setState({showQuestion: !showQuestion})}>Flip Card</Text>
-            </TouchableOpacity>
+
           </View>
+        </View>
+      )
+      : (
+        <View>
+          <Text style={[styles.headerTxt,{padding: 20}]}>Quiz Completed</Text>
+          <Text style={styles.completeTxt}>You got {correctAnswers} out of {decks.decks[deckName].questions.length} correct</Text>
+          <Text style={styles.completeTxt}>{((correctAnswers/decks.decks[deckName].questions.length)*100).toFixed(0)}%</Text>
+          {((correctAnswers/decks.decks[deckName].questions.length)*100).toFixed(0) >= 70 ?
+            <View>
+              <Text style={styles.completeTxt}>Keep up the great work!</Text>
+            </View>
+            : <View>
+              <Text style={styles.completeTxt}>Keep studying and you will be the master of this deck!</Text>
+            </View>
+          }
         </View>
       )
   }
@@ -121,6 +177,12 @@ const styles = StyleSheet.create({
   wrongBtn: {
     backgroundColor: 'red',
     borderColor: 'darkred'
+  },
+  completeTxt: {
+    textAlign: 'center',
+    fontSize: 26,
+    fontWeight: 'bold',
+    padding: 20,
   }
 })
 
